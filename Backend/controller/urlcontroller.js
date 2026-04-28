@@ -11,7 +11,6 @@ exports.generateShortUrl=(req,res)=>{
         const saveurl=new Url({originalUrl:url,short: shortUrl})
         
         saveurl.save()
-        
     }
     catch(err){
         res.status(500).json({error:"Internal Server Error"})
