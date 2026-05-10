@@ -9,7 +9,7 @@ exports.generateShortUrl=(req,res)=>{
         const shortUrl=Math.random().toString(36).substring(2,8)
         res.status(200).json({shortUrl})
         const saveurl=new Url({originalUrl:url,short: shortUrl})
-        
+        //save command*
         saveurl.save()
     }
     catch(err){
