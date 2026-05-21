@@ -23,19 +23,20 @@ The project focuses on backend architecture, URL redirection handling, API desig
 
 ## Create Short URL API Request (Postman)
 
-<img width="1915" height="218" alt="Screenshot 2026-05-21 150010" src="https://github.com/user-attachments/assets/8ad4b049-03a9-4b89-9599-aa29eba4546b" />
+<img width="1043" height="294" alt="Screenshot 2026-05-21 154025" src="https://github.com/user-attachments/assets/01e934bb-135b-4e3f-a9fe-1ba863cb604e" />
 
 ---
 
 ## Generated Short URL Response
 
-<img width="1919" height="126" alt="Screenshot 2026-05-21 150155" src="https://github.com/user-attachments/assets/e67f4bb5-2db3-4f38-9301-0fd3b175867d" />
+<img width="6798" height="1024" alt="Screenshot 2026-05-21 154035" src="https://github.com/user-attachments/assets/a629d84f-4555-4001-b3d4-181170220925" />
 
 ---
 
 ## MongoDB Database Entry
 
-<img width="1100" height="794" alt="Screenshot 2026-05-21 144750" src="https://github.com/user-attachments/assets/b0373c55-f09a-486a-962e-92a2b5637c49" />
+<img width="962" height="440" alt="Screenshot 2026-05-21 154709" src="https://github.com/user-attachments/assets/19f4f677-2ab4-49bb-b5bd-df68b361070d" />
+
 
 ---
 
@@ -61,18 +62,29 @@ The project focuses on backend architecture, URL redirection handling, API desig
 # 📂 Folder Structure
 
 ```text
-URL-Shortner/
+URL-SHORTNER/
 │
-├── src/
-│   ├── controllers/
-│   ├── routes/
+├── Backend/
+│   ├── controller/
+│   │   └── urlcontroller.js
+│   │
 │   ├── models/
-│   ├── middleware/
-│   └── utils/
+│   │   └── urlmodel.js
+│   │
+│   ├── routes/
+│   │   └── urlroutes.js
+│   │
+│   ├── node_modules/
+│   ├── .gitignore
+│   ├── db.js
+│   ├── package.json
+│   ├── package-lock.json
+│   └── server.js
 │
-├── screenshots/
-├── server.js
-└── package.json
+├── Frontend/
+│   └── index.html
+│
+└── README.md
 ```
 
 ---
@@ -97,7 +109,7 @@ POST /api/shorten
 
 ```json
 {
-  "shortUrl": "http://localhost:3000/abc123"
+  "shortUrl": "http://localhost:3000/uniqueshortid"
 }
 ```
 
@@ -113,7 +125,7 @@ Redirects to the original URL.
 
 ---
 
-# 🧠 Future Improvements
+# Future Improvements
 
 - QR Code Generation
 - Redis Caching
@@ -143,7 +155,7 @@ npm start
 
 ---
 
-# 📌 Sample Workflow
+# Sample Workflow
 
 ```text
 Long URL
@@ -163,4 +175,3 @@ Redirect User
 
 Adi Shrivastava
 
-GitHub: https://github.com/adi-shrivastava
