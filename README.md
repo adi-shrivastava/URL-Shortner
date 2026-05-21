@@ -1,6 +1,6 @@
 # 🔗 URL Shortener
 
-A minimal and scalable URL shortening service built using Node.js, Express.js, and MongoDB.
+A minimal and scalable URL shortening service built using Node.js, Express.js, MongoDB, and Postman.
 
 The project focuses on backend architecture, URL redirection handling, API design, and scalable system fundamentals.
 
@@ -15,34 +15,33 @@ The project focuses on backend architecture, URL redirection handling, API desig
 - REST API support
 - URL validation
 - Clean backend architecture
+- API testing with Postman
 
 ---
 
 # 🖼️ Preview
 
-## Home Page
-<!-- Add Screenshot Here -->
+## Create Short URL API Request (Postman)
 
-![Home Page](./screenshots/home.png)
-
----
-
-## Generated Short URL
-<!-- Add Screenshot Here -->
-
-![Generated URL](./screenshots/generated.png)
+<img width="1915" height="218" alt="Screenshot 2026-05-21 150010" src="https://github.com/user-attachments/assets/8ad4b049-03a9-4b89-9599-aa29eba4546b" />
 
 ---
 
-## Analytics Dashboard
-<!-- Add Screenshot Here -->
+## Generated Short URL Response
 
-![Analytics](./screenshots/analytics.png)
+<img width="1919" height="126" alt="Screenshot 2026-05-21 150155" src="https://github.com/user-attachments/assets/e67f4bb5-2db3-4f38-9301-0fd3b175867d" />
 
 ---
 
-# 🚀 Live Demo
+## MongoDB Database Entry
 
+<img width="1100" height="794" alt="Screenshot 2026-05-21 144750" src="https://github.com/user-attachments/assets/b0373c55-f09a-486a-962e-92a2b5637c49" />
+
+---
+
+# 🎥 Demo
+
+<img width="800" height="450" alt="ezgif-3e7e50aaef28ab23" src="https://github.com/user-attachments/assets/34f3f31f-72d2-4236-b1d0-b5abfd9abc2a" />
 
 ---
 
@@ -55,6 +54,7 @@ The project focuses on backend architecture, URL redirection handling, API desig
 | MongoDB | Database |
 | Mongoose | ODM |
 | NanoID | Short URL Generation |
+| Postman | API Testing |
 
 ---
 
@@ -109,7 +109,7 @@ POST /api/shorten
 GET /:shortId
 ```
 
-Redirects to original URL.
+Redirects to the original URL.
 
 ---
 
@@ -122,7 +122,7 @@ Redirects to original URL.
 - Rate Limiting
 - Docker Deployment
 - Analytics Dashboard
-  
+
 ---
 
 # 🛠️ Setup & Installation
