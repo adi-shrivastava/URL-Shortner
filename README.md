@@ -43,8 +43,6 @@ The project focuses on backend architecture, URL redirection handling, API desig
 
 # 🚀 Live Demo
 
-🔴 Live Website:  
-[Add Live Link Here]
 
 ---
 
@@ -124,18 +122,7 @@ Redirects to original URL.
 - Rate Limiting
 - Docker Deployment
 - Analytics Dashboard
-
----
-
-# 📊 What I Learned
-
-- REST API development
-- MongoDB integration
-- Backend architecture
-- URL encoding & hashing
-- Scalable routing concepts
-- Error handling & validation
-
+  
 ---
 
 # 🛠️ Setup & Installation
