@@ -8,7 +8,6 @@ const logrequest=(req,res,next)=>{
 }
 const app=express()
 app.use(express.json());
-
 app.use(logrequest);
 app.use("/",routes);
 app.listen(3000,()=>{
