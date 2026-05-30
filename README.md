@@ -134,6 +134,26 @@ Redirects to the original URL.
 - Rate Limiting
 - Docker Deployment
 - Analytics Dashboard
+  
+---
+
+## ⚙️ System Scalability & Optimization Architecture
+
+I am currently refactoring this service to handle high-concurrency enterprise workloads and security filtering using a dual-layer upgrade:
+
+### 1. High-Performance Caching Layer (Redis Integration)
+* **Problem**: High-volume redirect operations (`GET /:shortId`) create expensive, high-latency I/O bottlenecks on the primary MongoDB cluster.
+* **Solution**: Implementing an in-memory Redis caching layer.
+* **Data Flow Logic**:
+  1. Incoming redirect request hits the `GET /:shortId` endpoint.
+  2. System checks the Redis cluster using key lookup in $O(1)$ time complexity.
+  3. If cache **HIT**: Redirect user instantly, bypassing database overhead entirely.
+  4. If cache **MISS**: Query MongoDB, write records to Redis with an explicit Time-To-Live (TTL), and redirect.
+
+### 2. Destination Input Security Scoring Engine
+* **Problem**: Malicious actors frequently exploit URL shorteners to mask phishing vectors, domain traps, or malware links.
+* **Solution**: Integrating an validation layer inside the `POST /api/shorten` controller.
+* **Mechanism**: The backend runs the long URL string against malicious domain blocklists and calculates an automated threat vector safety score before allowing short code allocation.
 
 ---
 
