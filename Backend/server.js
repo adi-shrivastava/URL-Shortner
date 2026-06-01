@@ -6,6 +6,7 @@ const logrequest=(req,res,next)=>{
     console.log(`${req.method} ${req.url} ${new Date().toString()}`);
     next();
 }
+
 const app=express()
 app.use(express.json());
 app.use(logrequest);
