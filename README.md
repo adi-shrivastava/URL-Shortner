@@ -13,7 +13,7 @@ The project focuses on backend architecture, URL redirection handling, API desig
 - Google Safe Browsing API (-Security Check)
 - Custom aliases
 - Click tracking
-- Efficient Databse Handling Eliminating Duplicate Records Easily
+- Efficient Databse Handling Eliminating Duplicate Records Easily (Reducing Data Redundancy MongoDB)
 - REST API support
 - URL validation
 - Clean backend architecture
