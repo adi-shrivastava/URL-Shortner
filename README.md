@@ -64,11 +64,15 @@ The project focuses on backend architecture, URL redirection handling, API desig
 # 📂 Folder Structure
 
 ```text
+#Updated
 URL-SHORTNER/
 │
 ├── Backend/
 │   ├── controller/
 │   │   └── urlcontroller.js
+│   │
+│   ├── middleware/
+│   │   └── safetycheck.js
 │   │
 │   ├── models/
 │   │   └── urlmodel.js
@@ -77,6 +81,8 @@ URL-SHORTNER/
 │   │   └── urlroutes.js
 │   │
 │   ├── node_modules/
+│   │
+│   ├── .env
 │   ├── .gitignore
 │   ├── db.js
 │   ├── package.json
@@ -84,7 +90,6 @@ URL-SHORTNER/
 │   └── server.js
 │
 ├── Frontend/
-│   └── index.html
 │
 └── README.md
 ```
