@@ -10,7 +10,7 @@ The project focuses on backend architecture, URL redirection handling, API desig
 
 - Generate short URLs
 - Fast redirection system
-- Added Google Safe
+- Added Google Safe Brows
 - Custom aliases
 - Click tracking
 - REST API support
