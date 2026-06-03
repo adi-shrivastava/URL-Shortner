@@ -39,7 +39,7 @@ exports.newurl = async (req, res) => {
     console.timeEnd("redirect_lookup")
     if (url) {
         res.redirect(url.originalUrl)
-        res.status(200).json({ message: "Redirecting to URL" })
+        // res.status(200).json({ message: "Redirecting to URL" })
     }
     else {
         res.status(404).json({ error: "URL not found" })
