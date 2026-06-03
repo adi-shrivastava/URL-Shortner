@@ -12,9 +12,9 @@ exports.generateShortUrl = async (req, res) => {
         if (response.matches) { //matches condition by GOOGLE SAFETY CHECK API (DANGEROUS URL)
             return res.status(400).json({ error: "URL is unsafe" })
         }
-        else {
-            console.log("URL is safe")
-        }
+        
+        console.log("URL is safe")
+        
         const existingurl = await Url.findOne({ originalUrl: url })
         if (existingurl) {
             existingurl.clicks += 1
