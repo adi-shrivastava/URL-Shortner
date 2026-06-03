@@ -17,13 +17,15 @@ exports.generateShortUrl=async(req,res)=>{
         }
         const existingurl=await Url.findOne({originalUrl:url})
         if(existingurl){
+            existingurl.clicks+=1
+            await existingurl.save()
             return res.status(200).json({shortUrl:existingurl.short})
         }
         const shortUrl=Math.random().toString(36).substring(2,8)
         res.status(200).json({shortUrl})
         const saveurl=new Url({originalUrl:url,short: shortUrl})
         //save command
-        saveurl.save()
+        await saveurl.save()
     }
     catch(err){
         res.status(500).json({error:"Internal Server Error"})
