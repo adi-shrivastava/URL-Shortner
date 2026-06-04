@@ -1,6 +1,11 @@
 const Url = require("../models/urlmodel")
 const checkUrlsafety = require("../middleware/safetycheck")
+const redisClient = require("../middleware/redis")
 console.log(checkUrlsafety)
+async function redisconnect() {
+    await redisClient.connect();
+    console.log("Redis Connected!!")
+}
 exports.generateShortUrl = async (req, res) => {
     try {
         const { url } = req.body
@@ -12,9 +17,9 @@ exports.generateShortUrl = async (req, res) => {
         if (response.matches) { //matches condition by GOOGLE SAFETY CHECK API (DANGEROUS URL)
             return res.status(400).json({ error: "URL is unsafe" })
         }
-        
+
         console.log("URL is safe")
-        
+
         const existingurl = await Url.findOne({ originalUrl: url })
         if (existingurl) {
             existingurl.clicks += 1
@@ -35,15 +40,14 @@ exports.newurl = async (req, res) => {
     console.time("redirect_lookup")
     const id = req.params.id
     console.log(id)
+    const Cachedurl = await redisClient.get(id)
+    if (Cachedurl) {
+        console.log("Cache Hit")
+        res.redirect(Cachedurl)
+    }
+    console.log("Cache missed")
     const url = await Url.findOne({ short: id })
     console.timeEnd("redirect_lookup")
-    if (url) {
-        res.redirect(url.originalUrl)
-        // res.status(200).json({ message: "Redirecting to URL" })
-    }
-    else {
-        res.status(404).json({ error: "URL not found" })
-    }
 }
 exports.stats = async (req, res) => {
     const shortid = req.params.id
@@ -55,7 +59,7 @@ exports.stats = async (req, res) => {
         res.status(404).json({ error: "Url not found" })
     }
 }
-exports.benchmark=async(req,res)=>{
-    const url=await Url.findOne({short:req.params.id});
-    return res.status(200).json({ok:true});
+exports.benchmark = async (req, res) => {
+    const url = await Url.findOne({ short: req.params.id });
+    return res.status(200).json({ ok: true });
 }
