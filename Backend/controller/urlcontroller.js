@@ -55,3 +55,7 @@ exports.stats = async (req, res) => {
         res.status(404).json({ error: "Url not found" })
     }
 }
+exports.benchmark=async(req,res)=>{
+    const url=await Url.findOne({short:req.params.id});
+    return res.status(200).json({ok:true});
+}
