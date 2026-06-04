@@ -2,10 +2,6 @@ const Url = require("../models/urlmodel")
 const checkUrlsafety = require("../middleware/safetycheck")
 const redisClient = require("../middleware/redis")
 console.log(checkUrlsafety)
-async function redisconnect() {
-    await redisClient.connect();
-    console.log("Redis Connected!!")
-}
 exports.generateShortUrl = async (req, res) => {
     try {
         const { url } = req.body
@@ -43,11 +39,15 @@ exports.newurl = async (req, res) => {
     const Cachedurl = await redisClient.get(id)
     if (Cachedurl) {
         console.log("Cache Hit")
-        res.redirect(Cachedurl)
+        console.timeEnd("redirect_lookup")
+        return res.redirect(Cachedurl)
+        
     }
     console.log("Cache missed")
     const url = await Url.findOne({ short: id })
+    await redisClient.set(id,url.originalUrl)
     console.timeEnd("redirect_lookup")
+    return res.redirect(url.originalUrl)
 }
 exports.stats = async (req, res) => {
     const shortid = req.params.id
