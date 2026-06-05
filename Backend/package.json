@@ -1,8 +1,11 @@
 {
   "dependencies": {
     "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
     "ioredis": "^5.11.1",
     "mongoose": "^9.5.0",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "rate-limit-redis": "^5.0.0",
+    "redis": "^6.0.0"
   }
 }
