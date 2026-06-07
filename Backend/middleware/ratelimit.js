@@ -1,10 +1,12 @@
-const redis=require("./middleware/redis")
+const { RedisClient } = require("redis")
 async function rateLimit(req,res,next){
     try{
         const ip=req.ip
         const currentTime=Date.now()
-        const requestCount=await redis.get(ip)
-        if(requestCount){
+
         }
+    catch(err){
+        console.error("Error in rate limiting middleware:",err);
     }
 }
+module.exports=rateLimit
