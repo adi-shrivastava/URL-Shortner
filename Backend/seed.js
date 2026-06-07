@@ -54,5 +54,4 @@ async function test() {
 
     process.exit();
 }
-
-seed();
+test();
