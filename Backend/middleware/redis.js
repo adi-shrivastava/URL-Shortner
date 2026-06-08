@@ -8,5 +8,6 @@ redisClient.on('error', (err) => {
 async function connectRedis() {
     await redisClient.connect();
 }
+
 connectRedis();
 module.exports=redisClient
