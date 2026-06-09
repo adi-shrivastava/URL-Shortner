@@ -29,6 +29,7 @@ exports.generateShortUrl = async (req, res) => {
         await saveurl.save()
     }
     catch (err) {
+        console.log(err)
         res.status(500).json({ error: "Internal Server Error" })
     }
 }
@@ -45,6 +46,12 @@ exports.newurl = async (req, res) => {
     }
     console.log("Cache missed")
     const url = await Url.findOne({ short: id })
+    if(!url){
+        return res.status(404).json({
+            error:"short url not found"
+        })
+    }
+
     await redisClient.set(id,url.originalUrl)
     console.timeEnd("redirect_lookup")
     return res.redirect(url.originalUrl)

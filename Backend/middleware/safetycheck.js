@@ -31,7 +31,8 @@ async function checkUrlsafety(url) {
         return response.data;
     } 
     catch(err) {
-        res.status(500).json({ error: "Error checking URL safety" });
+        console.log(err)
+        throw err;
     }
 }
 module.exports = checkUrlsafety
