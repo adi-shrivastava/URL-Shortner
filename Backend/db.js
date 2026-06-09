@@ -1,6 +1,6 @@
 const mongoose=require("mongoose");
-const MongoURL="mongodb://localhost:27017/urlshortnerdb";
-mongoose.connect(MongoURL);
+console.log("MONGO_URL =", process.env.MONGO_URL);
+mongoose.connect(process.env.MONGO_URL);
 const db=mongoose.connection;
 db.on("connected",()=>{
     console.log("MongoDB Sever Connected!!");
