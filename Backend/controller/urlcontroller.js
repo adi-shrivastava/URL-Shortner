@@ -1,4 +1,5 @@
 const Url = require("../models/urlmodel")
+const cors=require("cors")
 const checkUrlsafety = require("../middleware/safetycheck")
 const redisClient = require("../middleware/redis")
 console.log(checkUrlsafety)
