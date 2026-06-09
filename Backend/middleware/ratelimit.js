@@ -1,15 +1,17 @@
-const { RedisClient } = require("redis")
+const redisClient=require("../middleware/redis")
 async function rateLimit(req,res,next){
     try{
         const ip=req.ip
         const currentTime=Date.now()
-        const reqcount=await RedisClient.incr(ip)
+        const reqcount=await redisClient.incr(ip)
+        console.log(reqcount)
         if(reqcount===1){
-            await RedisClient.expire(ip,60)
+            await redisClient.expire(ip,60)
         }
-        if(reqcount>100){
+        if(reqcount>5){
             return res.status(429).json({error:"Too many requests."})
         }
+        next();
     }
     catch(err){
         console.error("Error in rate limiting middleware:",err);
