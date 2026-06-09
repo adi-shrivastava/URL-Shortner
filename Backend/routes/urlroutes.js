@@ -6,7 +6,7 @@ const router=express.Router()
 router.get("/",(req,res)=>{
     res.send("Welcome to URL shortner Homepage YESS!!!");
 })
-router.post("/shorten",generateShortUrl)
+router.post("/shorten",ratelimit1,generateShortUrl)
 router.get("/benchmark/:id", (req, res) => {
     res.status(200).json({ ok: true });
 });

@@ -8,7 +8,7 @@ async function rateLimit(req,res,next){
         if(reqcount===1){
             await redisClient.expire(ip,60)
         }
-        if(reqcount>100){
+        if(reqcount>5){
             return res.status(429).json({error:"Too many requests."})
         }
         next();

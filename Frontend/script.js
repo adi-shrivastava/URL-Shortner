@@ -1,90 +1,59 @@
 async function shortenUrl() {
-
-    const url = document.getElementById("urlInput").value;
-
-    const result = document.getElementById("result");
-
-    if (!url) {
-        result.innerHTML = `
-            <div class="error">
-                Please enter a URL
-            </div>
-        `;
-        return;
-    }
-
     try {
 
-        result.innerHTML = "Loading...";
+        const url = document.getElementById("urlInput").value;
 
-        const response = await fetch(
-            "http://localhost:3000/shorten",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ url })
-            }
-        );
+        if (!url) {
+            alert("Please enter a URL");
+            return;
+        }
+
+        const response = await fetch("http://localhost:3000/shorten", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ url })
+        });
 
         const data = await response.json();
 
         console.log(data);
 
-        if (response.ok) {
+        // If backend returns only shortId
+        const shortUrl = data.shortUrl.startsWith("http")
+            ? data.shortUrl
+            : `http://localhost:3000/${data.shortUrl}`;
 
-            const generatedUrl =
-                `http://localhost:3000/${data.shortUrl}`;
+        document.getElementById("result").innerHTML = `
+            <div class="success">
+                <h3>Short URL Generated 🎉</h3>
+                <a href="${shortUrl}" target="_blank">
+                    ${shortUrl}
+                </a>
+            </div>
+        `;
 
-            result.innerHTML = `
-                <div class="success">
+        const qrContainer = document.getElementById("qrcode");
 
-                    <h3>✅ URL is Safe</h3>
+        // remove old QR
+        qrContainer.innerHTML = "";
 
-                    <br>
+        new QRCode(qrContainer, {
+            text: shortUrl,
+            width: 200,
+            height: 200,
+            correctLevel: QRCode.CorrectLevel.H
+        });
 
-                    <strong>Short URL:</strong>
+    } catch (error) {
 
-                    <br><br>
+        console.error(error);
 
-                    <a href="${generatedUrl}" target="_blank">
-                        ${generatedUrl}
-                    </a>
-
-                    <br><br>
-
-                    <button onclick="copyUrl('${generatedUrl}')">
-                        Copy URL
-                    </button>
-
-                </div>
-            `;
-
-        } else {
-
-            result.innerHTML = `
-                <div class="error">
-                    ❌ ${data.error}
-                </div>
-            `;
-        }
-
-    } catch (err) {
-
-        console.error(err);
-
-        result.innerHTML = `
+        document.getElementById("result").innerHTML = `
             <div class="error">
-                Backend not reachable
+                Failed to shorten URL ❌
             </div>
         `;
     }
-}
-
-function copyUrl(url) {
-
-    navigator.clipboard.writeText(url);
-
-    alert("Copied!");
 }

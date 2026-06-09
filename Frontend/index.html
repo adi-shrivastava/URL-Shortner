@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,32 +11,48 @@
 
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <div class="container">
+
         <div class="card">
+
             <h1>🔗 URL Shortener</h1>
+
             <p class="subtitle">
                 Convert long URLs into clean, shareable links instantly.
             </p>
 
             <div class="input-group">
-                <input
-                    type="text"
-                    id="urlInput"
-                    placeholder="Paste your long URL..."
-                >
+
+                <input type="text" id="urlInput" placeholder="Paste your long URL...">
 
                 <button onclick="shortenUrl()">
                     Shorten
                 </button>
+
             </div>
 
-            <div id="result"></div>
+            <div class="result-wrapper">
+
+                <div id="result"></div>
+
+                <div id="qrcode"></div>
+
+            </div>
         </div>
+
     </div>
 
+    <footer class="end">
+        <p>Built 🔨 and Crafted by <span>Adi</span> ✨</p>
+        <small>© 2026 All Rights Reserved</small>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="script.js"></script>
 
 </body>
+
 </html>

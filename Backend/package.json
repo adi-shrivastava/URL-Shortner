@@ -12,7 +12,9 @@
     "ioredis": "^5.11.1",
     "mongoose": "^9.5.0",
     "nodemon": "^3.1.14",
+    "qrcode": "^1.5.4",
     "rate-limit-redis": "^5.0.0",
-    "redis": "^6.0.0"
+    "redis": "^6.0.0",
+    "redis-cli": "^2.1.2"
   }
 }
