@@ -2,6 +2,7 @@ const redisClient=require("../middleware/redis")
 async function rateLimit(req,res,next){
     try{
         const ip=req.ip
+        console.log("IP",ip)
         const currentTime=Date.now()
         const reqcount=await redisClient.incr(ip)
         console.log(reqcount)

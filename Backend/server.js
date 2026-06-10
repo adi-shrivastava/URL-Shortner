@@ -8,7 +8,7 @@ const logrequest=(req,res,next)=>{
     console.log(`${req.method} ${req.url} ${new Date().toString()}`);
     next();
 }
-
+app.set("trust proxy", 1);
 const app=express();
 app.use(cors());
 app.use(express.json());
