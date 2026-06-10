@@ -8,7 +8,7 @@ async function shortenUrl() {
             return;
         }
 
-        const response = await fetch("http://localhost:3000/shorten", {
+        const response = await fetch("http://localhost:5000/shorten", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -23,7 +23,7 @@ async function shortenUrl() {
         // If backend returns only shortId
         const shortUrl = data.shortUrl.startsWith("http")
             ? data.shortUrl
-            : `http://localhost:3000/${data.shortUrl}`;
+            : `http://localhost:5000/${data.shortUrl}`;
 
         document.getElementById("result").innerHTML = `
             <div class="success">
