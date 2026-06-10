@@ -6,7 +6,7 @@ The service is deployed on Railway and optimized for high-performance redirects 
 
 ## 🌐 Live Demo
 
-https://url-shortner-production-b706.up.railway.app
+https://url-shortner-five-rouge.vercel.app/
 
 ---
 
