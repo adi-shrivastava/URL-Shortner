@@ -1,9 +1,6 @@
 # 🔗 URL Shortener
 
-A minimal and scalable URL shortening service built using Node.js, Express.js, MongoDB, and Postman.
-
-The project focuses on backend architecture, URL redirection handling, API design, and scalable system fundamentals.
-
+Built a scalable URL Shortener using Node.js, Express.js, MongoDB, and Redis. Implemented Redis-based caching for URL redirects and IP-based rate limiting to improve performance and prevent abuse. Load tested using Autocannon (100 concurrent connections), where Redis caching improved throughput from 43 req/sec to 314 req/sec (~7.3× increase) and reduced average latency from 2395 ms to 347 ms (~85% reduction). Deployed on Railway with URL safety checks integrated via Google's Safe Browsing API.
 ---
 
 ## ✨ Features
@@ -20,6 +17,61 @@ The project focuses on backend architecture, URL redirection handling, API desig
 - API testing with Postman
 
 ---
+## 🚀 Performance Benchmark
+
+Load testing was performed using **Autocannon** with **100 concurrent connections** on the deployed Railway application.
+
+### Before Redis Caching
+
+| Metric | Value |
+|----------|----------|
+| Concurrent Connections | 100 |
+| Average Latency | 2395 ms |
+| Median Latency (P50) | 1744 ms |
+| Maximum Latency | 10326 ms |
+| Throughput | 43 req/sec |
+
+### After Redis Caching
+
+| Metric | Value |
+|----------|----------|
+| Concurrent Connections | 100 |
+| Average Latency | 347 ms |
+| Median Latency (P50) | 311 ms |
+| Maximum Latency | 1021 ms |
+| Throughput | 314 req/sec |
+
+### Performance Improvement
+
+| Metric | Before | After | Improvement |
+|----------|----------|----------|----------|
+| Throughput | 43 req/sec | 314 req/sec | **+630% (7.3×)** |
+| Average Latency | 2395 ms | 347 ms | **-85.5%** |
+| Median Latency | 1744 ms | 311 ms | **-82.2%** |
+| Maximum Latency | 10326 ms | 1021 ms | **-90.1%** |
+
+### Key Optimizations
+
+- Implemented **Redis caching** for frequently accessed short URLs.
+- Reduced repeated **MongoDB lookups** for redirect requests.
+- Improved redirect response times through **in-memory caching**.
+- Added **Redis-based rate limiting** to prevent abuse and excessive requests.
+
+### Benchmark Command
+
+```bash
+autocannon -c 100 -d 20 https://url-shortner-production-b706.up.railway.app/<short-code>
+```
+
+### Tech Stack
+
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Redis
+- Railway
+- Google Safe Browsing API
+- Autocannon
 
 # 🖼️ Preview
 
@@ -132,17 +184,6 @@ Redirects to the original URL.
 
 ---
 
-# Future Improvements
-
-- QR Code Generation
-- Redis Caching
-- Authentication System
-- URL Expiration
-- Rate Limiting
-- Docker Deployment
-- Analytics Dashboard
-  
----
 
 ## ⚙️ System Scalability & Optimization Architecture
 
