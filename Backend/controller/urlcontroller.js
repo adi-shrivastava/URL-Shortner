@@ -24,7 +24,7 @@ exports.generateShortUrl = async (req, res) => {
             return res.status(200).json({ shortUrl: existingurl.short ,safe:true})
         }
         const shortUrl = Math.random().toString(36).substring(2, 8)
-        res.status(200).json({ shortUrl })
+        return res.status(200).json({ shortUrl })
         const saveurl = new Url({ originalUrl: url, short: shortUrl })
         //save command
         await saveurl.save()
