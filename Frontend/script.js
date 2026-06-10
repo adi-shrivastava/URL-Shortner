@@ -31,7 +31,7 @@ async function shortenUrl() {
 
         const shortUrl = data.shortUrl.startsWith("http")
             ? data.shortUrl
-            : `url-shortner-production-b706.up.railway.app/${data.shortUrl}`;
+            : `url-shortner-production-b706.up.railway.app${data.shortUrl}`;
 
         document.getElementById("result").innerHTML = `
             <div class="success">
