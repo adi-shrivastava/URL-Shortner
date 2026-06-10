@@ -6,11 +6,11 @@ const router=express.Router()
 router.get("/",(req,res)=>{
     res.send("Welcome to URL shortner Homepage YESS!!!");
 })
-router.post("/shorten",ratelimit1,generateShortUrl)
+router.post("/shorten",generateShortUrl)
 router.get("/benchmark/:id", (req, res) => {
     res.status(200).json({ ok: true });
 });
-router.get("/:id",ratelimit1,newurl)
+router.get("/:id",newurl)
 router.get("/stats/:id",ratelimit1,stats)
 
 module.exports=router
