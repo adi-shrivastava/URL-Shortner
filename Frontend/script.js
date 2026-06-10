@@ -20,13 +20,22 @@ async function shortenUrl() {
 
         console.log(data);
 
-        // If backend returns only shortId
+        if (data.safe === false) {
+            document.getElementById("result").innerHTML = `
+                <div class="error">
+                    URL is unsafe ❌
+                </div>
+            `;
+            return;
+        }
+
         const shortUrl = data.shortUrl.startsWith("http")
             ? data.shortUrl
             : `http://localhost:5000/${data.shortUrl}`;
 
         document.getElementById("result").innerHTML = `
             <div class="success">
+                <h3>✅ URL is Safe</h3>
                 <h3>Short URL Generated 🎉</h3>
                 <a href="${shortUrl}" target="_blank">
                     ${shortUrl}
@@ -36,7 +45,6 @@ async function shortenUrl() {
 
         const qrContainer = document.getElementById("qrcode");
 
-        // remove old QR
         qrContainer.innerHTML = "";
 
         new QRCode(qrContainer, {
