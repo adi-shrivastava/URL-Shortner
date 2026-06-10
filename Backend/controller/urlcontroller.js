@@ -16,12 +16,12 @@ exports.generateShortUrl = async (req, res) => {
         }
 
         console.log("URL is safe")
-        res.status(200).json({safe:true})
+
         const existingurl = await Url.findOne({ originalUrl: url })
         if (existingurl) {
             existingurl.clicks += 1
             await existingurl.save()
-            return res.status(200).json({ shortUrl: existingurl.short })
+            return res.status(200).json({ shortUrl: existingurl.short ,safe:true})
         }
         const shortUrl = Math.random().toString(36).substring(2, 8)
         res.status(200).json({ shortUrl })
