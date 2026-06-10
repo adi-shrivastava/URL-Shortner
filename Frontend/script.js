@@ -8,7 +8,7 @@ async function shortenUrl() {
             return;
         }
 
-        const response = await fetch("http://localhost:5000/shorten", {
+        const response = await fetch("url-shortner-production-b706.up.railway.app", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -31,7 +31,7 @@ async function shortenUrl() {
 
         const shortUrl = data.shortUrl.startsWith("http")
             ? data.shortUrl
-            : `http://localhost:5000/${data.shortUrl}`;
+            : `url-shortner-production-b706.up.railway.app/${data.shortUrl}`;
 
         document.getElementById("result").innerHTML = `
             <div class="success">
