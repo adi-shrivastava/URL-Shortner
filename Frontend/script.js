@@ -28,7 +28,14 @@ async function shortenUrl() {
             `;
             return;
         }
-
+        if (!data.shortUrl) {
+            document.getElementById("result").innerHTML = `
+        <div class="error">
+            ${data.error || "No short URL returned from server"} ❌
+        </div>
+    `;
+            return;
+        }
         const shortUrl = data.shortUrl.startsWith("http")
             ? data.shortUrl
             : `https://url-shortner-production-b706.up.railway.app/${data.shortUrl}`;
