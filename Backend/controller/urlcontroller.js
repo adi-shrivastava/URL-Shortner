@@ -37,17 +37,17 @@ exports.generateShortUrl = async (req, res) => {
     }
 }
 exports.newurl = async (req, res) => {
-    // console.time("redirect_lookup")
+    console.time("redirect_lookup")
     const id = req.params.id
     console.log(id)
-    // const Cachedurl = await redisClient.get(id)
-    // if (Cachedurl) {
-    //     console.log("Cache Hit")
-    //     console.timeEnd("redirect_lookup")
-    //     return res.redirect(Cachedurl)
+    const Cachedurl = await redisClient.get(id)
+    if (Cachedurl) {
+        console.log("Cache Hit")
+        console.timeEnd("redirect_lookup")
+        return res.redirect(Cachedurl)
         
-    // }
-    // console.log("Cache missed")
+    }
+    console.log("Cache missed")
     const url = await Url.findOne({ short: id })
     if(!url){
         return res.status(404).json({
@@ -55,8 +55,8 @@ exports.newurl = async (req, res) => {
         })
     }
 
-    // await redisClient.set(id,url.originalUrl)
-    // console.timeEnd("redirect_lookup")
+    await redisClient.set(id,url.originalUrl)
+    console.timeEnd("redirect_lookup")
     return res.redirect(url.originalUrl)
 }
 exports.stats = async (req, res) => {

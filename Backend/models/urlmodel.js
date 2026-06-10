@@ -3,7 +3,8 @@ const UrlSchema=new mongoose.Schema({
     short:{
         type:String,
         required:true,
-        unique:true
+        unique:true,
+        index:true
     },
     originalUrl:{
         type:String,
