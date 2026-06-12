@@ -3,9 +3,10 @@ const ratelimit1=require("../middleware/ratelimit")
 const {generateShortUrl,newurl,stats,analytics}=require('./../controller/urlcontroller')
 console.log(ratelimit1)
 const router=express.Router()
-router.get("/",analytics,(req,res)=>{
+router.get("/",(req,res)=>{
     res.send("Welcome to URL shortner Homepage YESS!!!");
 })
+router.get("/analytics",analytics)
 router.post("/shorten",ratelimit1,generateShortUrl)
 router.get("/benchmark/:id",ratelimit1, (req, res) => {
     res.status(200).json({ ok: true });
