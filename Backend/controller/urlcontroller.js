@@ -6,15 +6,17 @@ const { RedisClient } = require("redis")
 console.log(checkUrlsafety)
 exports.analytics=async(req,res)=>{
     try{
-        const cacheddata=await RedisClient.get("analytics:top3")
+        const cacheddata=await redisClient.get("analytics:top3")
+        console.log(cacheddata)
         if(cacheddata){
-            return res.status(200).json(cacheddata)
+            return res.status(200).json(JSON.parse(cacheddata))
         }
-        const fetchurl=await Url.find().sort({clicks:-1}).limit(3)
-        await redisClient.set("analytics:top3",cacheddata)
-        return res.status(200).json({fetchurl})
+        const fetchurl=await Url.find().sort({clicks:-1}).limit(3);
+        await redisClient.set("analytics:top3",JSON.stringify(fetchurl))
+        return res.status(200).json(({fetchurl}))
     }
-    catch{
+    catch(error){
+        console.log(error)
         return res.status(500).json({error:"details not found"})
     }
 }
