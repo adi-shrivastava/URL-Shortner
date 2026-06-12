@@ -3,6 +3,9 @@ const cors=require("cors")
 const checkUrlsafety = require("../middleware/safetycheck")
 const redisClient = require("../middleware/redis")
 console.log(checkUrlsafety)
+exports.analytics=async(req,res)=>{
+    
+}
 exports.generateShortUrl = async (req, res) => {
     try {
         const { url } = req.body
