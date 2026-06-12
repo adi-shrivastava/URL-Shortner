@@ -2,9 +2,21 @@ const Url = require("../models/urlmodel")
 const cors=require("cors")
 const checkUrlsafety = require("../middleware/safetycheck")
 const redisClient = require("../middleware/redis")
+const { RedisClient } = require("redis")
 console.log(checkUrlsafety)
 exports.analytics=async(req,res)=>{
-    
+    try{
+        const cacheddata=await RedisClient.get("analytics:top3")
+        if(cacheddata){
+            return res.status(200).json(cacheddata)
+        }
+        const fetchurl=await Url.find().sort({clicks:-1}).limit(3)
+        await redisClient.set("analytics:top3",cacheddata)
+        return res.status(200).json({fetchurl})
+    }
+    catch{
+        return res.status(500).json({error:"details not found"})
+    }
 }
 exports.generateShortUrl = async (req, res) => {
     try {
