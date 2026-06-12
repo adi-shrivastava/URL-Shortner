@@ -8,7 +8,7 @@ async function shortenUrl() {
             return;
         }
 
-        const response = await fetch("https://url-shortner-production-b706.up.railway.app/shorten", {
+        const response = await fetch("https://url-shortner-g1we.onrender.com/shorten", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -38,7 +38,7 @@ async function shortenUrl() {
         }
         const shortUrl = data.shortUrl.startsWith("http")
             ? data.shortUrl
-            : `https://url-shortner-production-b706.up.railway.app/${data.shortUrl}`;
+            : `https://url-shortner-g1we.onrender.com/${data.shortUrl}`;
 
         document.getElementById("result").innerHTML = `
             <div class="success">
