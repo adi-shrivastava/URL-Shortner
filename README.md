@@ -1,23 +1,113 @@
 # 🔗 URL Shortener
 
-A minimal and scalable URL shortening service built using Node.js, Express.js, MongoDB, and Postman.
+A scalable URL Shortener built using **Node.js, Express.js, MongoDB Atlas, and Redis**. The application supports URL shortening, Redis-powered caching, IP-based rate limiting, click analytics, and malicious URL detection using **Google Safe Browsing API**.
 
-The project focuses on backend architecture, URL redirection handling, API design, and scalable system fundamentals.
+The service is deployed on Railway and optimized for high-performance redirects through Redis caching.
+
+## 🌐 Live Demo
+
+https://url-shortner-five-rouge.vercel.app/
 
 ---
 
-## ✨ Features
+# ✨ Features
 
-- Generate short URLs
-- Fast redirection system
-- Google Safe Browsing API (-Security Check)
-- Custom aliases
-- Click tracking
-- Efficient Databse Handling Eliminating Duplicate Records Easily (Reducing Data Redundancy MongoDB)
-- REST API support
-- URL validation
-- Clean backend architecture
-- API testing with Postman
+* Generate short URLs
+* Fast URL redirection
+* Redis-based caching for redirects
+* Redis-based IP rate limiting
+* Google Safe Browsing API integration
+* Click analytics
+* URL validation
+* Duplicate URL detection
+* REST API support
+* Clean backend architecture
+* API testing with Postman
+* Cloud deployment on Railway
+
+---
+
+# 🏗️ Architecture
+
+```text
+                ┌─────────────┐
+                │   Client    │
+                └──────┬──────┘
+                       │
+                       ▼
+              ┌─────────────────┐
+              │ Express Backend │
+              └──────┬──────────┘
+                     │
+         ┌───────────┼───────────┐
+         │                       │
+         ▼                       ▼
+ ┌──────────────┐       ┌────────────────┐
+ │ Redis Cache  │       │ MongoDB Atlas  │
+ │ Rate Limiter │       │ Persistent DB  │
+ └──────┬───────┘       └────────────────┘
+        │
+        ▼
+ Fast Redirect Response
+```
+
+---
+
+# 🚀 Performance Benchmark
+
+Load testing was performed using **Autocannon** with **100 concurrent connections**.
+
+## Before Redis Caching
+
+| Metric                 | Value      |
+| ---------------------- | ---------- |
+| Concurrent Connections | 100        |
+| Average Latency        | 2395 ms    |
+| Median Latency (P50)   | 1744 ms    |
+| Maximum Latency        | 10326 ms   |
+| Throughput             | 43 req/sec |
+
+## After Redis Caching
+
+| Metric                 | Value       |
+| ---------------------- | ----------- |
+| Concurrent Connections | 100         |
+| Average Latency        | 347 ms      |
+| Median Latency (P50)   | 311 ms      |
+| Maximum Latency        | 1021 ms     |
+| Throughput             | 314 req/sec |
+
+## Impact of Redis Caching
+
+| Metric          | Before     | After       | Improvement      |
+| --------------- | ---------- | ----------- | ---------------- |
+| Throughput      | 43 req/sec | 314 req/sec | **+630% (7.3×)** |
+| Average Latency | 2395 ms    | 347 ms      | **-85.5%**       |
+| Median Latency  | 1744 ms    | 311 ms      | **-82.2%**       |
+| Maximum Latency | 10326 ms   | 1021 ms     | **-90.1%**       |
+
+### Key Optimizations
+
+* Implemented Redis caching for frequently accessed short URLs.
+* Reduced repeated MongoDB lookups for redirect requests.
+* Improved redirect response times through in-memory caching.
+* Added Redis-based rate limiting to prevent abuse and excessive requests.
+
+### Benchmark Command
+
+```bash
+autocannon -c 100 -d 20 https://url-shortner-production-b706.up.railway.app/<short-code>
+```
+
+---
+
+# 🔒 Security Features
+
+* Google Safe Browsing API integration
+* Redis-based IP rate limiting
+* URL validation
+* Duplicate URL detection
+* Protection against malicious redirects
 
 ---
 
@@ -39,7 +129,6 @@ The project focuses on backend architecture, URL redirection handling, API desig
 
 <img width="962" height="440" alt="Screenshot 2026-05-21 154709" src="https://github.com/user-attachments/assets/19f4f677-2ab4-49bb-b5bd-df68b361070d" />
 
-
 ---
 
 # 🎥 Demo
@@ -50,46 +139,72 @@ The project focuses on backend architecture, URL redirection handling, API desig
 
 # ⚙️ Tech Stack
 
-| Technology | Purpose |
-|---|---|
-| Node.js | Backend Runtime |
-| Express.js | API Handling |
-| MongoDB | Database |
-| Mongoose | ODM |
-| NanoID | Short URL Generation |
-| Postman | API Testing |
+| Technology               | Purpose                 |
+| ------------------------ | ----------------------- |
+| Node.js                  | Backend Runtime         |
+| Express.js               | API Framework           |
+| MongoDB Atlas            | Primary Database        |
+| Redis                    | Caching & Rate Limiting |
+| Mongoose                 | ODM                     |
+| Google Safe Browsing API | Threat Detection        |
+| Railway                  | Deployment              |
+| Autocannon               | Load Testing            |
+| Postman                  | API Testing             |
+| Docker                   | Containerization        |
+
+---
+
+# 🐳 Docker Support
+
+Build image:
+
+```bash
+docker build -t url-shortener .
+```
+
+Run container:
+
+```bash
+docker run -p 3000:3000 --env-file .env url-shortener
+```
+
+Using Docker Compose:
+
+```bash
+docker compose up -d
+```
+
+Stop services:
+
+```bash
+docker compose down
+```
 
 ---
 
 # 📂 Folder Structure
 
 ```text
-#Updated
 URL-SHORTNER/
 │
 ├── Backend/
 │   ├── controller/
-│   │   └── urlcontroller.js
-│   │
 │   ├── middleware/
+│   │   ├── ratelimit.js
+│   │   ├── redis.js
 │   │   └── safetycheck.js
 │   │
 │   ├── models/
-│   │   └── urlmodel.js
-│   │
 │   ├── routes/
-│   │   └── urlroutes.js
-│   │
-│   ├── node_modules/
-│   │
 │   ├── .env
-│   ├── .gitignore
 │   ├── db.js
-│   ├── package.json
-│   ├── package-lock.json
-│   └── server.js
+│   ├── server.js
+│   └── package.json
 │
 ├── Frontend/
+│
+├── Dockerfile
+├── docker-compose.yml
 │
 └── README.md
 ```
@@ -101,7 +216,7 @@ URL-SHORTNER/
 ## Create Short URL
 
 ```http
-POST /api/shorten
+POST /shorten
 ```
 
 ### Request
@@ -116,7 +231,7 @@ POST /api/shorten
 
 ```json
 {
-  "shortUrl": "http://localhost:3000/uniqueshortid"
+  "shortUrl": "https://your-domain.com/abc123"
 }
 ```
 
@@ -125,56 +240,58 @@ POST /api/shorten
 ## Redirect URL
 
 ```http
-GET /:shortId
+GET /:id
 ```
 
 Redirects to the original URL.
 
 ---
 
-# Future Improvements
+## Analytics
 
-- QR Code Generation
-- Redis Caching
-- Authentication System
-- URL Expiration
-- Rate Limiting
-- Docker Deployment
-- Analytics Dashboard
-  
+```http
+GET /stats/:id
+```
+
+Returns analytics data for a shortened URL.
+
 ---
 
-## ⚙️ System Scalability & Optimization Architecture
+# 🔧 Environment Variables
 
-I am currently refactoring this service to handle high-concurrency enterprise workloads and security filtering using a dual-layer upgrade:
+Create a `.env` file:
 
-### 1. High-Performance Caching Layer (Redis Integration)
-* **Problem**: High-volume redirect operations (`GET /:shortId`) create expensive, high-latency I/O bottlenecks on the primary MongoDB cluster.
-* **Solution**: Implementing an in-memory Redis caching layer.
-* **Data Flow Logic**:
-  1. Incoming redirect request hits the `GET /:shortId` endpoint.
-  2. System checks the Redis cluster using key lookup in $O(1)$ time complexity.
-  3. If cache **HIT**: Redirect user instantly, bypassing database overhead entirely.
-  4. If cache **MISS**: Query MongoDB, write records to Redis with an explicit Time-To-Live (TTL), and redirect.
+```env
+PORT=3000
 
-### 2. Destination Input Security Scoring Engine
-* **Problem**: Malicious actors frequently exploit URL shorteners to mask phishing vectors, domain traps, or malware links.
-* **Solution**: Integrating an validation layer inside the `POST /api/shorten` controller.
-* **Mechanism**: The backend runs the long URL string against malicious domain blocklists and calculates an automated threat vector safety score before allowing short code allocation.
+MONGO_URI=your_mongodb_connection_string
+
+REDIS_URL=your_redis_connection_string
+
+GOOGLE_SAFE_BROWSING_API_KEY=your_api_key
+```
 
 ---
 
 # 🛠️ Setup & Installation
 
+Clone repository:
+
 ```bash
 git clone https://github.com/adi-shrivastava/URL-Shortner.git
+```
 
+```bash
 cd URL-Shortner
+```
 
+Install dependencies:
+
+```bash
 npm install
 ```
 
-Run server:
+Run application:
 
 ```bash
 npm start
@@ -182,23 +299,19 @@ npm start
 
 ---
 
-# Sample Workflow
+# 📈 Future Enhancements
 
-```text
-Long URL
-   ↓
-Generate Unique ID
-   ↓
-Store in Database
-   ↓
-Create Short URL
-   ↓
-Redirect User
-```
+* User authentication (JWT)
+* CI/CD using GitHub Actions
+* Kubernetes deployment
 
 ---
 
 # 👨‍💻 Author
 
-Adi Shrivastava
+**Adi Shrivastava**
 
+BS in Data Science – IIT Madras
+CSE (AI & ML)
+
+⭐ If you found this project useful, consider giving it a star.
