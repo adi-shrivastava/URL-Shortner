@@ -7,7 +7,9 @@
     <title>URL Shortener</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -15,6 +17,8 @@
 <body>
 
     <div class="container">
+
+        <!-- URL SHORTENER CARD -->
 
         <div class="card">
 
@@ -26,9 +30,16 @@
 
             <div class="input-group">
 
-                <input type="text" id="urlInput" placeholder="Paste your long URL...">
+                <input
+                    type="url"
+                    id="urlInput"
+                    placeholder="Paste your long URL..."
+                >
 
-                <button onclick="shortenUrl()">
+                <button
+                    id="shortenBtn"
+                    onclick="shortenUrl()"
+                >
                     Shorten
                 </button>
 
@@ -41,16 +52,45 @@
                 <div id="qrcode"></div>
 
             </div>
+
+        </div>
+
+        <!-- ANALYTICS CARD -->
+
+        <div class="analytics-box">
+
+            <h2 class="analytics-heading">
+                📊 Analytics Dashboard
+            </h2>
+
+            <div id="analytics"></div>
+
         </div>
 
     </div>
 
+    <!-- FOOTER -->
+
     <footer class="end">
-        <p>Built 🔨 and Crafted by <span>Adi</span> ✨</p>
-        <small>© 2026 All Rights Reserved</small>
+
+        <p>
+            Built 🔨 and Crafted by
+            <span>Adi</span>
+            ✨
+        </p>
+
+        <small>
+            © 2026 All Rights Reserved
+        </small>
+
     </footer>
 
+    <!-- QR CODE LIBRARY -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- MAIN JS -->
+
     <script src="script.js"></script>
 
 </body>
