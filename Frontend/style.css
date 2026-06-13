@@ -14,15 +14,24 @@ body{
 
     padding:20px;
     color:white;
+
+    overflow-x:hidden;
 }
 
 .container{
     width:100%;
     max-width:950px;
+
     margin:auto;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 }
 
 .card{
+    width:100%;
+
     background:rgba(255,255,255,0.08);
     backdrop-filter:blur(20px);
 
@@ -45,6 +54,8 @@ h1{
     margin-bottom:10px;
     font-weight:800;
 
+    text-align:center;
+
     background:
     linear-gradient(
         90deg,
@@ -61,6 +72,8 @@ h1{
     color:#cbd5e1;
     margin-bottom:30px;
     line-height:1.6;
+
+    text-align:center;
 }
 
 .input-group{
@@ -136,14 +149,16 @@ button:disabled{
     margin-top:25px;
 
     display:flex;
+    flex-direction:column;
+
     align-items:center;
-    justify-content:space-between;
+    justify-content:center;
 
     gap:25px;
 }
 
 #result{
-    flex:1;
+    width:100%;
 }
 
 #result:empty,
@@ -157,6 +172,8 @@ button:disabled{
     border-radius:16px;
 
     animation:fadeIn .3s ease;
+
+    text-align:center;
 }
 
 .success{
@@ -192,7 +209,6 @@ button:disabled{
 
 #qrcode img{
     background:white;
-
     padding:12px;
 
     border-radius:16px;
@@ -201,9 +217,11 @@ button:disabled{
     height:180px !important;
 }
 
-/* ANALYTICS */
+/* ANALYTICS CARD */
 
 .analytics-box{
+
+    width:100%;
 
     margin-top:25px;
 
@@ -217,8 +235,7 @@ button:disabled{
 
     padding:30px;
 
-    box-shadow:
-    0 8px 32px rgba(0,0,0,.35);
+    box-shadow:0 8px 32px rgba(0,0,0,.35);
 }
 
 .analytics-heading{
@@ -226,6 +243,8 @@ button:disabled{
     font-size:1.4rem;
 
     margin-bottom:20px;
+
+    text-align:center;
 
     background:
     linear-gradient(
@@ -244,9 +263,11 @@ button:disabled{
     justify-content:space-between;
     align-items:center;
 
-    padding:16px 18px;
+    max-width:800px;
 
-    margin-bottom:12px;
+    margin:0 auto 12px auto;
+
+    padding:16px 18px;
 
     border-radius:18px;
 
@@ -350,17 +371,12 @@ button:disabled{
         opacity:1;
         transform:translateY(0);
     }
-
 }
 
 @media(max-width:768px){
 
     body{
         padding:15px;
-    }
-
-    .container{
-        width:100%;
     }
 
     .card,

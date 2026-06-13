@@ -242,7 +242,10 @@ function copyLink(url) {
 
         });
 }
-
+window.onload=()=>{
+    loadAnalytics()
+    setInterval(loadAnalytics,5000)
+}
 window.addEventListener(
     "load",
     loadAnalytics

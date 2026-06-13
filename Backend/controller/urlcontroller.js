@@ -6,13 +6,15 @@ const { RedisClient } = require("redis")
 console.log(checkUrlsafety)
 exports.analytics=async(req,res)=>{
     try{
-        const cacheddata=await redisClient.get("analytics:top3")
-        console.log(cacheddata)
-        if(cacheddata){
-            return res.status(200).json(JSON.parse(cacheddata))
-        }
+        // const cacheddata=await redisClient.get("analytics:top3")
+        // console.log(cacheddata)
+        // if(cacheddata){
+        //     return res.status(200).json(JSON.parse(cacheddata))
+        // }
         const fetchurl=await Url.find().sort({clicks:-1}).limit(3);
-        await redisClient.set("analytics:top3",JSON.stringify(fetchurl))
+        // await redisClient.set("analytics:top3",JSON.stringify(fetchurl),{
+        //     EX:20
+        // });
         return res.status(200).json(({fetchurl}))
     }
     catch(error){
@@ -73,6 +75,8 @@ exports.newurl = async (req, res) => {
     }
 
     await redisClient.set(id,url.originalUrl)
+    url.clicks+=1
+    await url.save()
     console.timeEnd("redirect_lookup")
     return res.redirect(url.originalUrl)
 }
