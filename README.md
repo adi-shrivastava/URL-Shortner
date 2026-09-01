@@ -5,7 +5,6 @@ A full-stack URL Shortener built using Node.js, Express.js, MongoDB Atlas, Redis
 The project started as a simple URL shortener but gradually evolved into a backend-focused system with Redis caching, rate limiting, analytics, QR code generation, malicious URL detection using Google Safe Browsing API, Docker support, and cloud deployment.
 
 The main goal of this project was to learn how real-world backend systems handle caching, redirects, API integrations, rate limiting, deployment, and performance optimization.
-
 ---
 
 ## 🌐 Live Demo
